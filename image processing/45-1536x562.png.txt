@@ -1,0 +1,21 @@
+[30]: capture = cv2.VideoCapture(@) # to initialize camera
+data = [] # to store face data
+while True:
+flag, img = capture.read() # read video frame by frame and return true/false and one frame at a time
+if flag: # will check if flag is True (if camera is available or not)
+faces = haar_data.detectMultiScale(img) # detecting face from the frame
+for x,y,w,h in faces: # fetching x,y,w,h of face detected in frame
+cv2.rectangle(img, (x,y), (xtw, yth), (255,0,255), 4) # drawing rectange on face
+face = img[y:yth, x:xtw, :] # slicing only face from the frame
+face = cv2.resize(face, (50,50)) # resizing all faces to 5@ x 50, so that all images will be of same size
+print(len(data) )
+if len(data) < 200: # condition for only storing 200 images
+data.append(face) # storing face data
+cv2.imshow('result',img) # to show the window
+#27 - ASCII of Escape
+if cv2.waitKey(2) == 27 or len(data) >= 200: # break Loop if escaped is pressed or 20@ faces are stored
+break
+
+capture.release() # release the camera object holded by opencV
+cv2.destroyAllWindows() # close all the windows opened by opency
+
